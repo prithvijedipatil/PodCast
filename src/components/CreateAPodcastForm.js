@@ -61,6 +61,7 @@ const CreateAPodcastForm = () => {
         setLoading(false);
       }
 
+      navigate("/podcasts");
       // 2. create a new doc iin a new collection called podcasts
       // 3. save this new podcast episodes states in our podcasts
     } else {
