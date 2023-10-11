@@ -5,6 +5,7 @@ import Button from "./components/common/Button";
 import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
+import Loader from "./components/loader/Loader";
 
 const Profile = () => {
 
@@ -28,6 +29,15 @@ const Profile = () => {
       // An error happened.
       toast.error(error.message);
     });
+  }
+
+  if(!user){
+
+    return(
+        <>
+        <Loader/>
+        </>
+    )
   }
 
   return (

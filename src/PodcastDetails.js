@@ -24,6 +24,8 @@ function PodcastDetailsPage() {
   }, [id]);
 
   const getData = async () => {
+
+    
     try {
       const docRef = doc(db, "podcasts", id);
       const docSnap = await getDoc(docRef);
