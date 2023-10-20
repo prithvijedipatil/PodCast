@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caladea:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@100;300;400;500;600;700;800&display=swap");
 
 :root {
   --theme: #20062e;
@@ -10,6 +10,7 @@
 
 body {
   margin: 0;
+  font-family: "Caladea", serif;
   font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -18,14 +19,16 @@ body {
 }
 
 input {
+  font-family: "Caladea", serif;
   font-family: "Inter", sans-serif;
 }
+
 a {
   text-decoration: none;
 }
 
 .input-wrapper {
-  width: 80vw;
+  width: 60vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,6 +44,19 @@ a {
   margin-bottom: 2rem;
 }
 
+.helpText {
+  opacity: 0.8;
+}
+
+.helpText span {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.helpText span:hover {
+  text-decoration: none;
+}
+
 .podcasts-flex {
   display: flex;
   justify-content: center;
@@ -48,6 +64,7 @@ a {
   gap: 1.5rem;
   flex-wrap: wrap;
 }
+
 .podcast-title-heading {
   text-align: left !important;
   width: 100%;
@@ -76,4 +93,11 @@ a {
   color: var(--purple-grey);
   text-align: left;
   width: 100%;
+}
+
+.readable-input {
+  outline: none;
+  background-color: transparent;
+  color: #fff;
+  border: none;
 }

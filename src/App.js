@@ -1,73 +1,68 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
-import Profile from "./Profile";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-import Landing from "./Landing";
-import PrivateRoutes from "./components/PrivateRoutes";
 import { useEffect } from "react";
-import { auth, db } from "./firebase";
-import { onSnapshot, doc } from "firebase/firestore";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUser } from "./slices/userSlice";
+import { ToastContainer } from "react-toastify";
 import { onAuthStateChanged } from "firebase/auth";
-import CreateAPodcastPage from "./CreateAPodcast";
-import Podcasts from "./Podcasts";
-import PodcastDetailsPage from "./PodcastDetails";
-import CreateAnEpisodePage from "./CreateAnEpisode";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "./firebase";
+import { setUser } from "./slices/userSlice";
+import Header from "./components/common/Header";
+import PrivateRoutes from "./components/common/PrivateRoutes";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import CreatePodcast from "./pages/CreatePodcast";
+import Podcasts from "./pages/Podcasts";
+import PodcastDetails from "./pages/PodcastDetails";
+import CreateEpisode from "./pages/CreateEpisode";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const dispatch = useDispatch();
-
   useEffect(() => {
-     onAuthStateChanged(auth, (user) => {
-      console.log("running useEffect");
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
-        onSnapshot(
-          doc(db, "users", user.uid),
-          (userDoc) => {
-            if (userDoc.exists()) {
-              const userData = userDoc.data();
-              console.log("user data",userData)
-              console.log("running useEffect-snapshot");
-              dispatch(
-                setUser({
-                  name: userData.name,
-                  email: userData.email,
-                  uid: user.uid,
-                })
-              );
-            }
-          },
-          (error) => {
-            toast.error("Error fetching user data:", error);
+        try {
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            dispatch(
+              setUser({
+                name: userData.name,
+                email: userData.email,
+                uid: user.uid,
+                profileImage: userData.profileImage,
+              })
+            );
           }
-        );
-
-        
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      } else {
+        dispatch(setUser(null));
       }
     });
-
-   
   }, []);
 
   return (
-    <>
+    <main className="App">
       <ToastContainer />
-      <Router>
+      <BrowserRouter>
+        <Header />
         <Routes>
-          <Route path="/" element={<Landing />} />
+          <Route path="/" element={<Home />} />
           <Route element={<PrivateRoutes />}>
             <Route path="/profile" element={<Profile />} />
-            <Route path="/create-a-podcast" element={<CreateAPodcastPage />} />
-            <Route path="/podcasts" element={<Podcasts/>}/>
-            <Route path="/podcast/:id" element={<PodcastDetailsPage/>}  />
-            <Route path="/podcast/:id/create-an-episode" element={<CreateAnEpisodePage/>}  />
+            <Route path="/create-podcast" element={<CreatePodcast />} />
+            <Route path="/podcasts" element={<Podcasts />} />
+            <Route path="/podcast/:id" element={<PodcastDetails />} />
+            <Route
+              path="/podcast/:id/create-episode"
+              element={<CreateEpisode />}
+            />
           </Route>
         </Routes>
-      </Router>
-    </>
+      </BrowserRouter>
+    </main>
   );
 }
 
