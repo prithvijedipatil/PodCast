@@ -11,6 +11,8 @@ import { GoLinkExternal } from "react-icons/go";
 import SmallCard from "../components/Podcast/SmallCard";
 import MediumCard from "../components/Podcast/MediumCard";
 import Loader from "../components/common/Loader";
+import AudioPlayer from "../components/Podcast/AudioPlayer";
+
 
 function Podcasts() {
   const dispatch = useDispatch();
@@ -18,7 +20,11 @@ function Podcasts() {
   const [search, setSearch] = useState("");
   const [genre, setGenre] = useState("all");
   const [spotify,setSpotify] = useState("");
+  const [playingFile,setPlayingFile] = useState("");
+
   const [filteredPodcasts, setFilteredPodcasts] = useState(podcasts);
+
+
   useEffect(   () => {
     onSnapshot(
       query(collection(db, "podcasts")),
@@ -180,12 +186,21 @@ function Podcasts() {
                     title={data.trackName}
                     id={data.tackName}
                     displayImage={data.displayImageUri}
+                   
+                      
+                      onClick={(state) => setPlayingFile(state)}
+                    
                   />
                 );
               }):<Loader/>}
             </div>
           
       </div>
+      
+      {playingFile && (
+      
+        <AudioPlayer audioSrc={"/audiosample.mp3"} image={"/audioImage.jpg"} />
+      )}
     </div>
   );
 }

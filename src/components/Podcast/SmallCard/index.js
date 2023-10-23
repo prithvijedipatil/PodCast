@@ -3,13 +3,18 @@ import { Link } from "react-router-dom";
 import "./smallcardstyles.css";
 import {BsPlayCircle} from "react-icons/bs"
 
-function SmallCard({ id, title, displayImage }) {
+function SmallCard({ id, title, displayImage, onClick}) {
   return (
-    <Link to={`/podcast/${id}`}>
+    <Link to={`/podcasts`}>
       <div className="podcast-card-smallcard">
         <img className="display-image-podcast-smallcard" src={displayImage} alt={title} />
         <p className="title-podcast-smallcard">{title}</p>
-        <BsPlayCircle color="white"/>
+        <BsPlayCircle  onClick={()=>{
+        
+          {onClick(true)}
+          console.log("clicked");
+        }
+          } color="white"/>
         
       </div>
     </Link>
