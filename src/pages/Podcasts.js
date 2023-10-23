@@ -10,6 +10,7 @@ import { BsCast } from "react-icons/bs";
 import { GoLinkExternal } from "react-icons/go";
 import SmallCard from "../components/Podcast/SmallCard";
 import MediumCard from "../components/Podcast/MediumCard";
+import Loader from "../components/common/Loader";
 
 function Podcasts() {
   const dispatch = useDispatch();
@@ -172,7 +173,7 @@ function Podcasts() {
             <div className="podcasts-flex-sidebar" style={{ marginTop: "1.5rem", flexDirection:"column",flexWrap:"nowrap" }}>
              
             
-              {spotify&&spotify.map((data, i) => {
+              {spotify?spotify.map((data, i) => {
                 return (
                   <SmallCard
                     key={i}
@@ -181,7 +182,7 @@ function Podcasts() {
                     displayImage={data.displayImageUri}
                   />
                 );
-              })}
+              }):<Loader/>}
             </div>
           
       </div>
