@@ -107,6 +107,7 @@ function PodcastDetails() {
             )}
           </>
         )}
+        <div style={{height:"70px"}}/>
       </div>
       {console.log("src",playingFile)}
       {playingFile && (

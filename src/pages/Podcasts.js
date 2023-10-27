@@ -21,7 +21,7 @@ function Podcasts() {
   const [genre, setGenre] = useState("all");
   const [spotify, setSpotify] = useState("");
   const [playingFile, setPlayingFile] = useState("");
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
 
   const [filteredPodcasts, setFilteredPodcasts] = useState(podcasts);
 
@@ -43,13 +43,13 @@ function Podcasts() {
 
     const spotifysearch = async () => {
       const url =
-        "https://spotify81.p.rapidapi.com/top_200_tracks?country=IN&period=weekly&date=2023-09-21";
+        "https://shazam.p.rapidapi.com/charts/track?locale=en-US&pageSize=20&startFrom=0";
       const options = {
         method: "GET",
         headers: {
           "X-RapidAPI-Key":
-            "7be0011a10mshe705355d9d78470p1c6866jsnd5b80830d00a",
-          "X-RapidAPI-Host": "spotify81.p.rapidapi.com",
+            "b6f9d03f5amshe296d181057a235p11f403jsne2d1f8b9e292",
+          "X-RapidAPI-Host": "shazam.p.rapidapi.com",
         },
       };
 
@@ -58,15 +58,17 @@ function Podcasts() {
         const result = await response.json();
         const playlist = [];
         let count = 0;
-        console.log(typeof result);
-        result.forEach((item) => {
+        console.log("typeof result", typeof result);
+        console.log("result", result);
+
+        result.tracks.forEach((item) => {
           if (count > 10) {
             return;
           }
-          playlist.push(item.trackMetadata);
+          playlist.push(item.share);
           count++;
         });
-        console.log(playlist);
+        console.log("playlist", playlist);
         setSpotify(playlist);
       } catch (error) {
         console.error(error);
@@ -162,21 +164,23 @@ function Podcasts() {
               className="podcasts-flex-medium"
               style={{ marginTop: "1.5rem" }}
             >
+              {console.log(spotify)}
               {spotify.map((data, i) => {
                 return (
                   <MediumCard
                     key={i}
-                    title={data.trackName}
-                    id={data.id}
-                    displayImage={data.displayImageUri}
+                    title={data.subject}
+                    id={data.snapchat}
+                    displayImage={data.image}
                   />
                 );
               })}
             </div>
           </>
         )}
+        <div style={{height:"140px"}}/>
       </div>
-
+      
       <div
         className={`sidebar hideInMobile ${
           toggle ? "toggle-out" : "toggle-in"
@@ -210,9 +214,9 @@ function Podcasts() {
               return (
                 <SmallCard
                   key={i}
-                  title={data.trackName}
-                  id={data.tackName}
-                  displayImage={data.displayImageUri}
+                  title={data.subject}
+                  id={data.snapchat}
+                  displayImage={data.image}
                   onClick={(state) => setPlayingFile(state)}
                 />
               );
@@ -222,6 +226,7 @@ function Podcasts() {
           )}
         </div>
       </div>
+     
 
       {playingFile && (
         <AudioPlayer audioSrc={"/audiosample.mp3"} image={"/audioImage.jpg"} />

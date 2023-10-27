@@ -1,7 +1,7 @@
 .podcast-card {
   width: 200px;
   min-height: 80px;
-  background:   linear-gradient(-80deg, rgba(3,27,33,1) 7%, rgba(21,107,131,1) 49%, rgba(3,32,40,1) 92%);
+  background:   linear-gradient(218deg, rgb(37 47 50 / 50%) 7%, #1a2427 49%, rgb(0 0 0) 92%);
  
   border-radius: 0.5rem; 
    padding: 0.5rem; 
