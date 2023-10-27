@@ -178,7 +178,7 @@ function Podcasts() {
             </div>
           </>
         )}
-        <div style={{height:"140px"}}/>
+        <div style={{height:"100px"}}/>
       </div>
       
       <div
@@ -217,6 +217,7 @@ function Podcasts() {
                   title={data.subject}
                   id={data.snapchat}
                   displayImage={data.image}
+                  src = {data.url}
                   onClick={(state) => setPlayingFile(state)}
                 />
               );
