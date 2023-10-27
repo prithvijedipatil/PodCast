@@ -63,11 +63,11 @@ function SignupForm() {
             profileImage: user.profileImage,
           })
         );
-        toast.success("User has been created!");
+        toast.success("You have succefully created your account");
         setLoading(false);
         navigate("/podcasts");
       } catch (e) {
-        toast.error(e.message);
+        toast.error("Failed to create your account, please try again", e);
         setLoading(false);
       }
     } else {

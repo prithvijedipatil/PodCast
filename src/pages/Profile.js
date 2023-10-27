@@ -60,11 +60,11 @@ function Profile() {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        toast.success("User Logged Out!");
+        toast.success("You have Logged Out!");
       })
       .catch((error) => {
         // An error happened.
-        toast.error(error.message);
+        toast.error("unable to logout",error.message);
       });
   };
 

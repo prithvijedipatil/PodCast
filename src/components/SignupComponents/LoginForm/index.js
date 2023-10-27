@@ -42,9 +42,9 @@ function LoginForm() {
         setLoading(false);
         navigate("/profile");
       } catch (error) {
-        console.error("Error signing in:", error);
+        console.error("Error signing in",error);
         setLoading(false);
-        toast.error(error.message);
+        toast.error("Login unsuccessful");
       }
     } else {
       toast.error("Make sure email and password are not empty");

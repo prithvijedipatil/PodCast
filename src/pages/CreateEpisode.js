@@ -42,7 +42,7 @@ function CreateEpisode() {
         setLoading(false);
         navigate(`/podcast/${id}`);
       } catch (error) {
-        toast.error(error.message);
+        toast.error("couldn't create episode", error);
         setLoading(false);
       }
     } else {
